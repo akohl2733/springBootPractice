@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Frontend</title>
+</head>
+<body>
+    <h1 id="user"></h1>
+
+    <script>
+        fetch("/api/user")
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("user").innerText =
+                    `Welcome, ${data.name} (${data.email})`;
+            });
+    </script>
+</body>
+</html>
