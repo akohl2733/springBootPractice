@@ -1,5 +1,7 @@
 package com.example.akohl.controller;
 
+import com.example.akohl.service.MotivationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,17 +14,21 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class FirstRestController {
 
+    private MotivationService ms;
+
+    @Autowired
+    public FirstRestController(MotivationService motiv) {
+        this.ms = motiv;
+    }
+
     @GetMapping("/status")
     public String getStatus(){
-        return "You're crushing it. Getting to work";
+        return ms.getStatusMessage();
     }
 
     @GetMapping("/quote")
     public List<Quote> getQuote(){
-        return List.of(
-                new Quote("Ernest Hemingway", "Courage is grace under pressure"),
-                new Quote("Bruce Wayne", "I'm Batman"),
-                new Quote("Zeke and Chloe", "Woof")
-        );
+        return ms.getAllQuotes();
     }
+
 }
